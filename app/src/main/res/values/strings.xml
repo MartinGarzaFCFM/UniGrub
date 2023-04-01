@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">UniGrub</string>
+    <string name="UbiGrub_Logo">UniGrub Logo</string>
+    <string name="Login_UserInput_Txt">E-Mail</string>
+
+    <!-- Strings de Login -->
+    <string name="Login_PasswordInput_Txt">Contraseña</string>
+    <string name="Login_Button">Entrar</string>
+    <string name="Login_RegisterHere">¿No tienes Cuenta? Registrate Aqui</string>
+
+    <!-- Strings de RegisterUser -->
+    <string name="RegisterUser_NameInput_Title">Nombre(s)</string>
+    <string name="RegisterUser_LastNameInput_Title">Apellido(s)</string>
+    <string name="RegisterUser_FacultadInput_Title">Facultad</string>
+    <string name="RegisterUser_EmailInput_Title">E-Mail</string>
+    <string name="RegisterUser_PasswordInput_Title">Contraseña</string>
+    <string name="RegisterUser_PasswordConfirmInput_Title">Repita la Contraseña</string>
+    <string name="RegisterUser_RegisterBtn_Text">Registrarse</string>
+    <string name="RegisterUser_BackToLogin_Text">¿Ya tienes cuenta? Haz Login Aqui</string>
 </resources>

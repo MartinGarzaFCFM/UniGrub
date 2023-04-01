@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="UniGrub_Blue">#010440</color>
+    <color name="UniGrub_LightYellow">#f2e41b</color>
+    <color name="UniGrub_Background">#f2be22</color>
+    <color name="UniGrub_Yellow">#f29f05</color>
+    <color name="UniGrub_DarkYellow">#a63f03</color>
 </resources>
