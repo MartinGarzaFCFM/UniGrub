@@ -14,5 +14,15 @@
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/UniGrub_Blue</item>
         <item name="android:background">@color/UniGrub_Background</item>
+        <item name="android:fontFamily">@font/galindo</item>
     </style>
+
+    <style name="Theme.UniGrub.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.UniGrub.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.UniGrub.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

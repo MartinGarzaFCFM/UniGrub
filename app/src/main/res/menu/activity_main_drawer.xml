@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group>
+        <item android:id="@+id/nav_item_album"
+            android:icon="@drawable/ic_album_24"
+            android:title="@string/menu_album" />
+        <item android:id="@+id/nav_item_genre"
+            android:icon="@drawable/ic_music_note_24"
+            android:title="@string/menu_genre" />
+    </group>
+
+    <group android:id="@+id/group_menu">
+        <item android:id="@+id/nav_item_contact"
+            android:icon="@drawable/ic_contact_page_24"
+            android:title="@string/menu_contact" />
+    </group>
+
+    <item android:title="Social Media">
+
+        <item android:id="@+id/nav_item_facebook"
+            android:icon="@drawable/ic_thumb_up_24"
+            android:title="@string/menu_facebook" />
+        <item android:id="@+id/nav_item_youtube"
+            android:icon="@drawable/ic_video_library_24"
+            android:title="@string/menu_youtube" />
+    </item>
+</menu>
