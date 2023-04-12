@@ -99,6 +99,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
+        android:clickable="true"
         android:text="@string/Login_RegisterHere"
         android:textColor="@color/UniGrub_Blue"
         android:textStyle="bold"

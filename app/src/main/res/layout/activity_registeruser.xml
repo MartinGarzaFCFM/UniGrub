@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterUser">
-
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -56,14 +55,12 @@
             android:layout_height="wrap_content"
             android:text="@string/RegisterUser_FacultadInput_Title" />
 
-        <EditText
+        <Spinner
             android:id="@+id/FacultadInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="8dp"
-            android:ems="10"
-            android:inputType="text" />
+            android:layout_marginBottom="8dp" />
 
         <TextView
             android:id="@+id/EmailInputTitle"
@@ -121,6 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:clickable="true"
             android:text="@string/RegisterUser_BackToLogin_Text"
             android:textAlignment="textStart"
             android:textColor="@color/UniGrub_Blue"

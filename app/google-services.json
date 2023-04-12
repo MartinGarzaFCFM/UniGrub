@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "888992109399",
+    "project_id": "unigrub-cbaea",
+    "storage_bucket": "unigrub-cbaea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888992109399:android:d896b916b322108b1c2412",
+        "android_client_info": {
+          "package_name": "com.fcfm.unigrub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "888992109399-tneqih9q7irtu8fjclemdofak6nlf0hj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvat6TUDJO393pXYH_PK1YMrxvVomsOKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "888992109399-tneqih9q7irtu8fjclemdofak6nlf0hj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
