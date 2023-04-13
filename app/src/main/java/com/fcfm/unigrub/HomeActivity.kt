@@ -19,6 +19,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.fcfm.unigrub.adapter.RecyclerAdapter
+import com.fcfm.unigrub.data.Item
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -32,6 +36,9 @@ class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
     private lateinit var usuarioActivo: Usuario
 
+    lateinit var mRecyclerView: RecyclerView
+    val mAdapter: RecyclerAdapter = RecyclerAdapter()
+
     private lateinit var textView: TextView
     private lateinit var intent: Intent
 
@@ -41,12 +48,9 @@ class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
-
         drawer = findViewById(R.id.drawer_layout)
-
         toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
 
@@ -73,6 +77,8 @@ class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
         textView = header.findViewById(R.id.nav_header_textView)
 
         textView.text = usuarioActivo.email.toString()
+
+        setUpRecyclerView()
 
     }
 
@@ -108,5 +114,25 @@ class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun setUpRecyclerView(){
+        mRecyclerView = findViewById<RecyclerView>(R.id.rvItemList)
+        mRecyclerView.setHasFixedSize(true)
+        mRecyclerView.layoutManager = LinearLayoutManager(this)
+        mAdapter.RecyclerAdapter(getItems(), this)
+        mRecyclerView.adapter = mAdapter
+    }
+
+    fun getItems(): MutableList<Item>{
+        var items:MutableList<Item> = ArrayList()
+        items.add(Item("Chicken Tikka Masala", "Tandoori Palace", "A popular Indian dish with tender chunks of marinated chicken in a spiced tomato-based sauce.", "asdf"))
+        items.add(Item("Pad Thai", "Thai House", "A classic Thai dish with stir-fried rice noodles, shrimp, bean sprouts, and peanuts in a tangy sauce.", "asdf"))
+        items.add(Item("Fish and Chips", "The Codfather", "A traditional British dish of battered fish and deep-fried chips, served with tartar sauce and lemon wedges.", "asdf"))
+        items.add(Item("Sushi Roll", "Sushi Time", "A Japanese dish of vinegared rice and various fillings wrapped in seaweed, sliced into bite-sized pieces.", "asdf"))
+        items.add(Item("Tacos al Pastor", "Taqueria El Charro", "A Mexican dish of marinated pork cooked on a vertical spit, served in soft corn tortillas with onions and cilantro.", "asdf"))
+        items.add(Item("Margherita Pizza", "Pizza Roma", "A classic Italian pizza with tomato sauce, fresh mozzarella cheese, and basil leaves on a thin crust.", "asdf"))
+        items.add(Item("Chicken Shawarma", "Sahara Grill", "A Middle Eastern dish of marinated chicken roasted on a spit and served in a pita with vegetables and sauce.", "asdf"))
+        return items
     }
 }
