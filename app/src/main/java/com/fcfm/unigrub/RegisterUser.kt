@@ -12,6 +12,10 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -128,20 +132,47 @@ class RegisterUser : AppCompatActivity() {
         val usuario = Usuario(name, lastName, facultad, email, password)
 
         //Crear Usuario, Guardar en Firebase e Iniciar en HomeActivity
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
-            if (task.isSuccessful) {
-                Log.d(TAG, "createUserWithEmail:success")
-                auth.currentUser?.let { database.child("usuarios").child(it.uid).setValue(usuario) }
-                intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-                Log.w(TAG, "createUserWIthEmail:failure", task.exception)
-                Toast.makeText(
-                    baseContext, "Authentication Failed.",
-                    Toast.LENGTH_SHORT
-                ).show()
+//        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
+//            if (task.isSuccessful) {
+//                Log.d(TAG, "createUserWithEmail:success")
+//                auth.currentUser?.let { database.child("usuarios").child(it.uid).setValue(usuario) }
+//                intent = Intent(this, HomeActivity::class.java)
+//                startActivity(intent)
+//                finish()
+//            } else {
+//                Log.w(TAG, "createUserWIthEmail:failure", task.exception)
+//                Toast.makeText(
+//                    baseContext, "Authentication Failed.",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//        }
+
+        val url = "http://20.232.215.102/includes/register_inc.php?action=create"
+        val queue = Volley.newRequestQueue(this)
+        var resultadoPost = object : StringRequest(Request.Method.POST, url,
+            Response.Listener<String> { response ->
+                Toast.makeText(this,"Usuario insertado exitosamente", Toast.LENGTH_LONG).show()
+            }, Response.ErrorListener { error ->
+                Toast.makeText(this,"Error $error ", Toast.LENGTH_LONG).show()
+            }){
+            override fun getParams(): MutableMap<String, String>? {
+                val parametros=HashMap<String,String>()
+                parametros.put("name",usuario.name.toString())
+                parametros.put("lastName",usuario.lastName.toString())
+                parametros.put("email",usuario.email.toString())
+                parametros.put("password",usuario.password.toString())
+                parametros.put("school",usuario.facultad.toString())
+                parametros.put("userType", "1")
+
+
+                return parametros
+
             }
         }
+
+        queue.add(resultadoPost)
+
+
     }
 }
