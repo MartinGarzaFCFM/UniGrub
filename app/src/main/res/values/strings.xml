@@ -16,6 +16,7 @@
     <string name="RegisterUser_PasswordInput_Title">Contraseña</string>
     <string name="RegisterUser_PasswordConfirmInput_Title">Repita la Contraseña</string>
     <string name="RegisterUser_RegisterBtn_Text">Registrarse</string>
+    <string name="RegisterUser_AsRestaurant_Text">¿Vendes Comida? Registrate Aqui</string>
     <string name="RegisterUser_BackToLogin_Text">¿Ya tienes cuenta? Haz Login Aqui</string>
 
     <string-array name="facultades">

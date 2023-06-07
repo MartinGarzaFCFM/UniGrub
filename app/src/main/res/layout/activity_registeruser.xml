@@ -114,6 +114,18 @@
             android:text="@string/RegisterUser_RegisterBtn_Text" />
 
         <TextView
+            android:id="@+id/RegisterAsRestaurantTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:text="@string/RegisterUser_AsRestaurant_Text"
+            android:textAlignment="textStart"
+            android:textColor="@color/UniGrub_Blue"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/BackToLoginTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -36,6 +36,7 @@ class RegisterUser : AppCompatActivity() {
     private lateinit var passwordconfirmInput: EditText
 
     private lateinit var registerBtn: Button
+    private lateinit var registerAsRestaurant: TextView
     private lateinit var backtologinTitle: TextView
 
     private lateinit var intent: Intent
@@ -55,6 +56,7 @@ class RegisterUser : AppCompatActivity() {
         passwordconfirmInput = findViewById(R.id.PasswordConfirmInput)
 
         registerBtn = findViewById(R.id.RegisterBtn)
+        registerAsRestaurant = findViewById(R.id.RegisterAsRestaurantTitle)
         backtologinTitle = findViewById(R.id.BackToLoginTitle)
 
         //Llenar el array de las facultades
@@ -79,6 +81,12 @@ class RegisterUser : AppCompatActivity() {
                     passwordInput.text.toString()
                 )
             }
+        }
+
+        registerAsRestaurant.setOnClickListener {
+            intent = Intent(this, RegisterAsRestaurant::class.java)
+            startActivity(intent)
+            finish()
         }
 
         backtologinTitle.setOnClickListener {
