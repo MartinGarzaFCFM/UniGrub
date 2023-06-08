@@ -19,28 +19,39 @@
     <string name="RegisterUser_AsRestaurant_Text">¿Vendes Comida? Registrate Aqui</string>
     <string name="RegisterUser_BackToLogin_Text">¿Ya tienes cuenta? Haz Login Aqui</string>
 
+    <!-- Strings de RegisterAsRestaurant -->
+    <string name="RegisterAsRestaurant_NameInput_Title">Nombre del Restaurant</string>
+    <string name="RegisterAsRestaurant_LastNameInput_Title">Apellido(s)</string>
+    <string name="RegisterAsRestaurant_FacultadInput_Title">Facultad</string>
+    <string name="RegisterAsRestaurant_EmailInput_Title">E-Mail</string>
+    <string name="RegisterAsRestaurant_PasswordInput_Title">Contraseña</string>
+    <string name="RegisterAsRestaurant_PasswordConfirmInput_Title">Repita la Contraseña</string>
+    <string name="RegisterAsRestaurant_RegisterBtn_Text">Registrarse</string>
+    <string name="RegisterAsRestaurant_AsCustomer_Text">¿No vendes comida? Regresate Aqui</string>
+    <string name="RegisterAsRestaurant_BackToLogin_Text">¿Ya tienes cuenta? Haz Login Aqui</string>
+
     <string-array name="facultades">
         <item>Facultad de Artes Visuales</item>
         <item>Facultad de Arquitectura</item>
-        <item>Facultad de Ciencias de la Comunicación</item>
+        <item>Facultad de Ciencias de la Comunicacion</item>
         <item>Facultad de Ciencias de la Tierra</item>
-        <item>Facultad de Ciencias Físicas y Matemáticas</item>
+        <item>Facultad de Ciencias Fisicas y Matemáticas</item>
         <item>Facultad de Ciencias Forestales</item>
-        <item>Facultad de Ciencias Políticas y Administración Pública</item>
-        <item>Facultad de Contaduría Pública y Administración</item>
-        <item>Facultad de Derecho y Criminología</item>
-        <item>Facultad de Economía</item>
-        <item>Facultad de Enfermería</item>
-        <item>Facultad de Filosofía y Letras</item>
-        <item>Facultad de Ingeniería Civil</item>
-        <item>Facultad de Ingeniería Electromecánica</item>
-        <item>Facultad de Ingeniería Mecánica y Eléctrica</item>
+        <item>Facultad de Ciencias Politicas y Administracion Publica</item>
+        <item>Facultad de Contaduria Publica y Administracion</item>
+        <item>Facultad de Derecho y Criminologia</item>
+        <item>Facultad de Economia</item>
+        <item>Facultad de Enfermeria</item>
+        <item>Facultad de Filosofia y Letras</item>
+        <item>Facultad de Ingenieria Civil</item>
+        <item>Facultad de Ingenieria Electromecánica</item>
+        <item>Facultad de Ingenieria Mecánica y Electrica</item>
         <item>Facultad de Medicina</item>
-        <item>Facultad de Música</item>
-        <item>Facultad de Odontología</item>
-        <item>Facultad de Organización Deportiva</item>
-        <item>Facultad de Psicología</item>
-        <item>Facultad de Salud Pública y Nutrición</item>
+        <item>Facultad de Musica</item>
+        <item>Facultad de Odontologia</item>
+        <item>Facultad de Organizacion Deportiva</item>
+        <item>Facultad de Psicologia</item>
+        <item>Facultad de Salud Publica y Nutricion</item>
         <item>Facultad de Trabajo Social</item>
         <item>Facultad de Veterinaria y Zootecnia</item>
     </string-array>
