@@ -2,6 +2,7 @@ package com.fcfm.unigrub
 
 import android.app.Notification.Action
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -17,6 +18,12 @@ import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +35,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
 
 class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
@@ -40,7 +50,11 @@ class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
     val mAdapter: RecyclerAdapter = RecyclerAdapter()
 
     private lateinit var textView: TextView
-    private lateinit var intent: Intent
+
+    //DataStore
+    private lateinit var userDataString : String
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,8 +73,10 @@ class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
         val header: View = navigationView.getHeaderView(0)
 
-        val user = Firebase.auth.currentUser
-        if (user == null){
+        //Leer el String de Inicio de Sesion
+        val userData = intent.getStringExtra("userData") ?: null
+
+        if (userData == null){
             Log.w(ContentValues.TAG, "IniciarSesion:FAILURE")
             Toast.makeText(baseContext, "Fallo el Usuario, Saliendo...", Toast.LENGTH_LONG).show()
 
@@ -69,9 +85,33 @@ class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
             finish()
         }
         else{
-            user?.let {
-                usuarioActivo = Usuario(it.displayName, it.displayName, "Facultad", it.email)
+            //Guardar datos del usuario de forma local para el inicio de sesion
+            val userDataJson = JSONObject(userData)
+            fun saveToDataStore() = runBlocking { // this: CoroutineScope
+                launch { // launch a new coroutine and continue
+                    dataStore.edit { settings ->
+                        settings[booleanPreferencesKey("userIsLogged")] = true
+                        settings[stringPreferencesKey("userId")] = userDataJson["userId"].toString()
+                        settings[stringPreferencesKey("name")] = userDataJson["name"].toString()
+                        settings[stringPreferencesKey("lastName")] = userDataJson["lastName"].toString()
+                        settings[stringPreferencesKey("email")] = userDataJson["email"].toString()
+                        settings[stringPreferencesKey("school")] = userDataJson["school"].toString()
+                        settings[stringPreferencesKey("userType")] = userDataJson["userType"].toString()
+                        settings[stringPreferencesKey("img")] = userDataJson["img"].toString()
+                    }
+                }
+                println("Hello") // main coroutine continues while a previous one is delayed
             }
+            saveToDataStore()
+
+            //Aplica los datos recabados en la pantalla
+            usuarioActivo = Usuario(
+                userDataJson["name"].toString(),
+                userDataJson["lastName"].toString(),
+                userDataJson["school"].toString(),
+                userDataJson["email"].toString(),
+                userDataJson["password"].toString()
+            )
         }
 
         textView = header.findViewById(R.id.nav_header_textView)
@@ -134,5 +174,18 @@ class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
         items.add(Item("Margherita Pizza", "Pizza Roma", "A classic Italian pizza with tomato sauce, fresh mozzarella cheese, and basil leaves on a thin crust.", "asdf"))
         items.add(Item("Chicken Shawarma", "Sahara Grill", "A Middle Eastern dish of marinated chicken roasted on a spit and served in a pita with vegetables and sauce.", "asdf"))
         return items
+    }
+
+
+    private suspend fun saveDataStore(userDataJson : JSONObject){
+        dataStore.edit { settings ->
+            settings[stringPreferencesKey("userId")] = userDataJson["userId"].toString()
+            settings[stringPreferencesKey("name")] = userDataJson["name"].toString()
+            settings[stringPreferencesKey("lastName")] = userDataJson["lastName"].toString()
+            settings[stringPreferencesKey("email")] = userDataJson["email"].toString()
+            settings[stringPreferencesKey("school")] = userDataJson["school"].toString()
+            settings[stringPreferencesKey("userType")] = userDataJson["userType"].toString()
+            settings[stringPreferencesKey("img")] = userDataJson["img"].toString()
+        }
     }
 }
