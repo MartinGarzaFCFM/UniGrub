@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
@@ -23,13 +25,17 @@ import com.android.volley.toolbox.Volley
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import kotlin.properties.Delegates
 
-
+val Context.dataStore by preferencesDataStore(name = "userdata")
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
@@ -42,15 +48,7 @@ class MainActivity : AppCompatActivity() {
     //Variable del Intent
     private lateinit var intent: Intent
 
-
-
-    //DataStore
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
     private lateinit var userDataString : String
-
-    object LoggedIn{
-        var loggedIn: Usuario? = null
-    }
 
     override fun onStart() {
         super.onStart()
@@ -61,11 +59,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //Revisar si ya se inicio sesion
-        lifecycleScope.launch {
-            val isLoggedIn = buscarLogIn("isLoggedIn")
-            if (isLoggedIn == true){
-                val toHome = Intent(this@MainActivity, HomeActivity::class.java)
-                startActivity(toHome)
+        lifecycleScope.launch(Dispatchers.IO) {
+            buscarLogIn().collect{
+                withContext(Dispatchers.Main){
+                    val isLoggedIn = it
+                    if(isLoggedIn){
+                        val toHome = Intent(this@MainActivity, HomeActivity::class.java)
+                        startActivity(toHome)
+                    }
+                }
             }
         }
 
@@ -104,10 +106,13 @@ class MainActivity : AppCompatActivity() {
             Response.Listener<String> { response ->
                 val data = JSONObject(response)
                 if(data["check"] == true){
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        dataStoreLogin(data);
+                    }
                     Toast.makeText(this,"Iniciando Sesion...", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this, HomeActivity::class.java)
-                    intent.putExtra("userData", response)
+                    val intent = Intent(this@MainActivity, HomeActivity::class.java)
                     startActivity(intent)
+                    Log.d("RESPONSEAPI", response)
                 }
                 else{
                     Toast.makeText(this,"Usuario Invalido", Toast.LENGTH_LONG).show()
@@ -136,11 +141,17 @@ class MainActivity : AppCompatActivity() {
         userDataString = data
     }
 
-    private suspend fun buscarLogIn(key: String): Boolean?{
-        val dataStoreKey = booleanPreferencesKey(key)
-        val preferences = dataStore.data.first()
-        return preferences[dataStoreKey]
+    private fun buscarLogIn() = dataStore.data.map { preferences ->
+        preferences[booleanPreferencesKey("isLoggedIn")] ?: false
     }
 
+    private suspend fun dataStoreLogin(data : JSONObject){
+        dataStore.edit { preferences ->
+            preferences[booleanPreferencesKey("isLoggedIn")] = true
+            preferences[stringPreferencesKey("name")] = data["name"].toString()
+            preferences[stringPreferencesKey("lastName")] = data["lastName"].toString()
+            preferences[stringPreferencesKey("school")] = data["school"].toString()
+        }
+    }
 
 }

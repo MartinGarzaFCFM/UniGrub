@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/UniGrub_Background"
-    tools:context=".MainActivity"
+    tools:context=".HomeActivity"
     tools:openDrawer="start">
     <include
         layout="@layout/app_bar_main"
@@ -16,12 +16,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvItemList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 
@@ -31,11 +30,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        android:visibility="invisible"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer"
-        android:visibility="gone"/>
-
-
+        app:menu="@menu/activity_main_drawer" />
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
